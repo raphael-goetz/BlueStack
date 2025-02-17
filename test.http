@@ -1,0 +1,62 @@
+### Create a new movie
+POST http://localhost:8080/movies/create
+Content-Type: application/json
+
+{
+  "name": "The Matrix",
+  "stars": 5
+}
+
+### Create another movie
+POST http://localhost:8080/movies/create
+Content-Type: application/json
+
+{
+  "name": "Inception",
+  "stars": 4
+}
+
+### Get all movies
+GET http://localhost:8080/movies
+
+### Get specific movie by ID
+GET http://localhost:8080/movies/get?id=0
+
+### Get another movie by ID
+GET http://localhost:8080/movies/get?id=1
+
+### Delete movie
+DELETE http://localhost:8080/movies/delete?id=0
+
+### Validation test - Invalid stars
+POST http://localhost:8080/movies/create
+Content-Type: application/json
+
+{
+  "name": "Invalid Movie",
+  "stars": 6
+}
+
+### Validation test - Empty name
+POST http://localhost:8080/movies/create
+Content-Type: application/json
+
+{
+  "name": "",
+  "stars": 3
+}
+
+### Try to get non-existent movie
+GET http://localhost:8080/movies/get?id=999
+
+### Try to delete non-existent movie
+DELETE http://localhost:8080/movies/delete?id=999
+
+### Invalid method test
+PUT http://localhost:8080/movies/create
+Content-Type: application/json
+
+{
+  "name": "Should Fail",
+  "stars": 4
+}
