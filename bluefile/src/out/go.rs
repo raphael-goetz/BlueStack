@@ -1,14 +1,15 @@
-use crate::{AttributeType, Node};
+use crate::grammar::{AttributeType, Node};
 use std::fs::File;
 use std::io::Write;
 
 fn attribute_to_type(attribute_type: AttributeType) -> String {
     match attribute_type {
-        AttributeType::Byte => String::from("byte"),
-        AttributeType::Int => String::from("int"),
-        AttributeType::Float => String::from("float32"),
-        AttributeType::Boolean => String::from("bool"),
-        AttributeType::String => String::from("string"),
+        AttributeType::Byte | AttributeType::ByteArray => String::from("number"),
+        AttributeType::Int | AttributeType::IntArray => String::from("number"),
+        AttributeType::Float | AttributeType::FloatArray => String::from("number"),
+        AttributeType::Boolean | AttributeType::BooleanArray => String::from("boolean"),
+        AttributeType::String | AttributeType::StringArray => String::from("string"),
+        AttributeType::Custom | AttributeType::CustomArray => String::from("value"),
     }
 }
 

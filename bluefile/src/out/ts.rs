@@ -1,14 +1,15 @@
+use crate::grammar::{AttributeType, Node};
 use std::fs::File;
 use std::io::Write;
-use crate::{AttributeType, Node};
 
 fn attribute_to_type(attribute_type: AttributeType) -> String {
     match attribute_type {
-        AttributeType::Byte => String::from("number"),
-        AttributeType::Int => String::from("number"),
-        AttributeType::Float => String::from("number"),
-        AttributeType::Boolean => String::from("boolean"),
-        AttributeType::String => String::from("string"),
+        AttributeType::Byte | AttributeType::ByteArray => String::from("number"),
+        AttributeType::Int | AttributeType::IntArray => String::from("number"),
+        AttributeType::Float | AttributeType::FloatArray => String::from("number"),
+        AttributeType::Boolean | AttributeType::BooleanArray => String::from("boolean"),
+        AttributeType::String | AttributeType::StringArray => String::from("string"),
+        AttributeType::Custom | AttributeType::CustomArray => String::from("value"),
     }
 }
 
@@ -21,10 +22,7 @@ pub fn write_ts(nodes: Vec<Node>) {
 
         for attribute in node.fields {
             let datatype = attribute_to_type(attribute.attribute_type);
-            let line = format!(
-                "\t{}: {}\n",
-                attribute.name, datatype
-            );
+            let line = format!("\t{}: {}\n", attribute.name, datatype);
             attributes.push(line);
         }
         let _ = file.write(format!("{}", header).as_bytes());

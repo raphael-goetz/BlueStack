@@ -1,0 +1,6 @@
+model Movie {
+    id int
+    name string
+    testarray Test[]
+    star int[]
+}
